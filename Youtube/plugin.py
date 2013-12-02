@@ -21,7 +21,7 @@ import htmlentitydefs
 import os
 import re
 
-BADURLS = re.compile("\.gif$|\.gz$|\.jpe?g$|\.png$|\.rar$|\.tar$|\.zip$|narf-archive\.com", re.IGNORECASE)
+BADURLS = re.compile("\.gif$|\.gz$|\.jpe?g$|\.png$|\.rar$|\.tar$|\.zip$|\.iso$|\.ogg$|\.mp[0-9]$|narf-archive\.com", re.IGNORECASE)
 DB_URI= "/home/weezel/supybot/plugins/Youtube/linkstore.db"
 
 class LinkDBApi:
@@ -39,16 +39,21 @@ class LinkDBApi:
             return
         with sqlite.connect(DB_URI) as conn:
             q = u"CREATE TABLE links (last_access DATETIME NOT NULL, submitter TEXT, desc TEXT, link TEXT NOT NULL, PRIMARY KEY(link));"
-            conn.text_factory = str
+            #conn.text_factory = str
+            conn.text_factory = sqlite.OptimizedUnicode
             cur = conn.cursor()
             results = cur.execute(q)
 
     def __safe_unicode(self, s):
         """Return the unicode representation of obj"""
         try:
-            return s.decode("utf-8").encode("utf-8")
+            return unicode(s, "utf-8")
         except UnicodeDecodeError:
-            return s.decode("iso8859-1").encode("utf-8")
+            return unicode(s.decode("iso8859-1"), "utf-8")
+        #try:
+        #    return s.decode("utf-8").encode("utf-8")
+        #except UnicodeDecodeError:
+        #    return s.decode("iso8859-1").encode("utf-8")
 
     def insertLink(self, submitter, desc, link):
         """Insert a link into the DB"""
@@ -59,7 +64,8 @@ class LinkDBApi:
 
         with sqlite.connect(DB_URI) as conn:
             q = u"INSERT OR IGNORE INTO links VALUES (strftime('%s', 'now'), ?, ?, ?);"
-            conn.text_factory = str
+            #conn.text_factory = str
+            conn.text_factory = sqlite.OptimizedUnicode
             results = conn.execute(q, (submitter, desc, link))
         return True
 
