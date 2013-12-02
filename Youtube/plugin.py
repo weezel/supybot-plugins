@@ -39,7 +39,6 @@ class LinkDBApi:
             return
         with sqlite.connect(DB_URI) as conn:
             q = u"CREATE TABLE links (last_access DATETIME NOT NULL, submitter TEXT, desc TEXT, link TEXT NOT NULL, PRIMARY KEY(link));"
-            #conn.text_factory = str
             conn.text_factory = sqlite.OptimizedUnicode
             cur = conn.cursor()
             results = cur.execute(q)
