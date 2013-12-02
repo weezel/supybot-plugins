@@ -50,10 +50,6 @@ class LinkDBApi:
             return unicode(s, "utf-8")
         except UnicodeDecodeError:
             return unicode(s.decode("iso8859-1"), "utf-8")
-        #try:
-        #    return s.decode("utf-8").encode("utf-8")
-        #except UnicodeDecodeError:
-        #    return s.decode("iso8859-1").encode("utf-8")
 
     def insertLink(self, submitter, desc, link):
         """Insert a link into the DB"""
