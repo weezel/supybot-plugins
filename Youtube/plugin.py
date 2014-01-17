@@ -48,7 +48,9 @@ class LinkDBApi:
         try:
             return unicode(s, "utf-8")
         except UnicodeDecodeError:
-            return unicode(s.decode("iso8859-1"), "utf-8")
+            return unicode(s.decode("utf-8", "ignore"), "utf-8")
+        except TypeError:
+            return unicode(s)
 
     def insertLink(self, submitter, desc, link):
         """Insert a link into the DB"""
@@ -81,6 +83,7 @@ class LinkDBApi:
 
     def getByLink(self, link):
         """docstring for getLink"""
+        link = self.__safe_unicode(link)
         with sqlite.connect(DB_URI) as conn:
             q = u"SELECT * FROM links WHERE link LIKE ?;"
             results = conn.execute(q, [link])
@@ -153,12 +156,16 @@ class Youtube(callbacks.Plugin):
                 if re.search(BADURLS, url) is not None:
                     continue
 
+                url = unicode(url, "utf-8")
                 urlseen = linkapi.getByLink(url)
                 if urlseen is "":
                     titlename = self.title(url)
                     if len(titlename) > 0:
                         linkapi.insertLink(msg.nick, titlename, url)
-                        irc.reply("%s [%s]" % (titlename, url))
+                        try:
+                            irc.reply("%s [%s]" % (titlename, url))
+                        except UnicodeDecodeError:
+                            irc.reply("%s [%s]" % (titlename.encode("utf-8"), url))
                 else:
                     linkapi.updateLinkLastseen(url)
                     irc.reply("%s [%s]" % (urlseen[2], urlseen[3]))
