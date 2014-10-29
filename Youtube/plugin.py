@@ -6,6 +6,10 @@
 #
 ###
 
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+
 import supybot.conf as conf
 import supybot.utils as utils
 from supybot.commands import *
@@ -34,7 +38,7 @@ class LinkDBApi:
                 F = open(DB_URI, "w")
                 F.close()
             except IOError, ioe:
-                callback.Plugin.log.debug("IOError in DB creation")
+                callbacks.Plugin.log.debug("IOError in DB creation")
         else:
             return
         with sqlite.connect(DB_URI) as conn:
