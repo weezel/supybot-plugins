@@ -31,7 +31,7 @@ class VoiceCommander(callbacks.Plugin):
             return
 
         if not chan.isVoice(msg.nick) and not chan.isOp(msg.nick):
-            irc.error("Bu bu! You ain't that cool")
+            irc.error("You are missing capability: op or voice")
             return
 
         if (len(args) == 0):
