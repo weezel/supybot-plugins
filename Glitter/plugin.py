@@ -51,8 +51,10 @@ class GlitterDB:
 
     def __safe_unicode(self, s):
         """Return the unicode representation of obj"""
-        return unicode(s, "utf-8").decode("utf-8")
-        #try:
+        try:
+            return unicode(s, "utf-8").decode("utf-8")
+        except UnicodeDecodeError, ude:
+            return s.decode("latin-1")
         #    return unicode(s, "utf-8")
         #except UnicodeDecodeError:
         #    return unicode(s.decode("utf-8", "ignore"), "utf-8")
