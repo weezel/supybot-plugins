@@ -10,9 +10,6 @@ import supybot.plugins as plugins
 import supybot.ircutils as ircutils
 import supybot.callbacks as callbacks
 
-import sys
-
-from os.path import isfile
 import queryeng as qe
 
 db = qe.DBSearch()

@@ -11,7 +11,7 @@
 Ohjeita saa komentamalla `@sivsan`.
 
 Haetaan esimerkiksi sanat, jotka alkavat 'à' merkillä:
-	
+
 	@sivsan à*
 
 Tai `ä` kirjaimeen loppuvat sivistyssanat:
@@ -20,5 +20,5 @@ Tai `ä` kirjaimeen loppuvat sivistyssanat:
 
 ## TODO
 
-- [] Päivitä kanta automaattisesti netistä, kun edellisestä kerrasta on
+- [ ] Päivitä kanta automaattisesti netistä, kun edellisestä kerrasta on
   tarpeeksi pitkä aika.

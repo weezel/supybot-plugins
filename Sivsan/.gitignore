@@ -1,5 +1,6 @@
 *.db
 *.html
+*.old
 *.pyc
 *.swp
 __init__.py
