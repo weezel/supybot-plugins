@@ -1,0 +1,5 @@
+*.db
+*.html
+*.pyc
+*.swp
+__init__.py
