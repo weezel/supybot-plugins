@@ -162,9 +162,7 @@ def get_url_title(url):
 if __name__ == '__main__':
     print get_url_title("hasdofijasdf")
     print get_url_title("http://severi.lan")
-    print get_url_title("http://severi.lan/weezel/pics")
     print get_url_title("https://severi.lan")
-    print get_url_title("https://severi.lan/weezel/pics")
     sys.exit(0)
 
 class Youtube(callbacks.Plugin):
@@ -197,11 +195,11 @@ class Youtube(callbacks.Plugin):
                     titlename = get_url_title(url)
                     if len(titlename) > 0:
                         linkid = linkapi.insert_and_get_linkid(uid, titlename, url)
-                        irc.reply("%s" % (titlename))
+                        irc.reply("Title: %s" % (titlename))
                 else:
                     if linkapi.is_link_old(url):
                         linkapi.updateLinkLastseen(url)
-                    irc.reply("%s [title updated: %s]" % (urlseen[0], time.ctime(urlseen[1])))
+                    irc.reply("Title: %s [title updated: %s]" % (urlseen[0], time.ctime(urlseen[1])))
 
 Class = Youtube
 
