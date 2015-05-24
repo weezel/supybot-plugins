@@ -49,8 +49,7 @@ def parsehtml2db():
     data = list()
 
     data = lxml.html.parse("sivsan.html").getroot()
-    x = data.xpath("//tr")
-    for item in x:
+    for item in data.xpath("//tr"):
         word = unicode()
         desc = unicode()
 
