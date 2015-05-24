@@ -1,0 +1,17 @@
+CREATE TABLE IF NOT EXISTS user
+(
+	uid INTEGER PRIMARY KEY,
+	name INTEGER NOT NULL,
+	UNIQUE (name)
+);
+
+CREATE TABLE IF NOT EXISTS link
+(
+	lid INTEGER PRIMARY KEY,
+	last_access DATETIME NOT NULL,
+	submitter INTEGER NOT NULL,
+	title TEXT,
+	link TEXT NOT NULL,
+	FOREIGN KEY(submitter) REFERENCES users(uid),
+	UNIQUE (link)
+);
