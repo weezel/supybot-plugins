@@ -19,7 +19,7 @@ import requests
 import sqlite3 as sqlite
 import time
 
-badurls = re.compile("\.gif$|\.gz$|\.jpe?g$|\.png$|\.rar$|\.tar$|\.zip$|" + \
+badurls = re.compile("\.gifv?$|\.gz$|\.jpe?g$|\.png$|\.rar$|\.tar$|\.zip$|" + \
                      "\.iso$|\.ogg$|\.mp[0-9]$|narf-archive\.com", \
                      re.IGNORECASE)
 dbfile = "/home/weezel/supybot/plugins/Youtube/linkstore.db"
