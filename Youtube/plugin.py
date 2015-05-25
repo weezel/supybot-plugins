@@ -20,7 +20,7 @@ import sqlite3 as sqlite
 import time
 
 badurls = re.compile("\.gifv?$|\.gz$|\.jpe?g$|\.png$|\.rar$|\.tar$|\.zip$|" + \
-                     "\.iso$|\.ogg$|\.mp[0-9]$|narf-archive\.com", \
+                     "\.pdf$|\.iso$|\.ogg$|\.mp[0-9]$|narf-archive\.com", \
                      re.IGNORECASE)
 dbfile = "/home/weezel/supybot/plugins/Youtube/linkstore.db"
 dbschema = "/home/weezel/supybot/plugins/Youtube/linkstore.sql"
@@ -157,7 +157,7 @@ def get_url_title(url):
     else:
         return unicode() # no <title> found
 
-    return read[b:e]
+    return re.sub("\s+", " ", read[b:e]).lstrip(" ").rstrip(" ")
 
 if __name__ == '__main__':
     print get_url_title("hasdofijasdf")
