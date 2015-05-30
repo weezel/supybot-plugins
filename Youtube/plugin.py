@@ -157,7 +157,9 @@ def get_url_title(url):
     else:
         return unicode() # no <title> found
 
-    return re.sub("\s+", " ", read[b:e]).lstrip(" ").rstrip(" ")
+    tmp = lxml.html.fromstring(read[b:e])
+    title = lxml.html.tostring(tmp, method="text", encoding="utf-8")
+    return re.sub("\s+", " ", safe_unicode(title)).lstrip(" ").rstrip(" ")
 
 if __name__ == '__main__':
     print get_url_title("hasdofijasdf")
