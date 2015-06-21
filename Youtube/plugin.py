@@ -14,6 +14,7 @@ import supybot.plugins as plugins
 import supybot.ircutils as ircutils
 import supybot.callbacks as callbacks
 
+import lxml.html
 import re
 import requests
 import sqlite3 as sqlite
