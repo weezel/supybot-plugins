@@ -14,5 +14,9 @@ week (86400seconds * 7).
 
 ## Dependencies
 
+* lxml
+
 * py-SQLite3
+
+* requests
 
