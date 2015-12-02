@@ -6,14 +6,6 @@
 
 import sys
 
-import supybot.conf as conf
-import supybot.utils as utils
-from supybot.commands import *
-import supybot.ircmsgs as ircmsgs
-import supybot.plugins as plugins
-import supybot.ircutils as ircutils
-import supybot.callbacks as callbacks
-
 import lxml.html
 import re
 import requests
@@ -137,6 +129,7 @@ def get_url_title(url):
 
     try:
         # TODO SSL doesn't work yet
+        #resp = requests.get(url, timeout=5, verify=False)
         resp = requests.get(url, timeout=5, stream=True, verify=False)
     except requests.exceptions.MissingSchema:
         return unicode()
@@ -163,10 +156,18 @@ def get_url_title(url):
     return re.sub("\s+", " ", safe_unicode(title)).lstrip(" ").rstrip(" ")
 
 if __name__ == '__main__':
-    print get_url_title("hasdofijasdf")
-    print get_url_title("http://severi.lan")
-    print get_url_title("https://severi.lan")
+    assert get_url_title("hasdofijasdf") == ""
+    assert get_url_title("http://severi.lan") == "severi.biz"
+    assert get_url_title("https://severi.lan") == "404 Not Found"
     sys.exit(0)
+
+import supybot.conf as conf
+import supybot.utils as utils
+from supybot.commands import *
+import supybot.ircmsgs as ircmsgs
+import supybot.plugins as plugins
+import supybot.ircutils as ircutils
+import supybot.callbacks as callbacks
 
 class Youtube(callbacks.Plugin):
     threaded = True
@@ -196,6 +197,7 @@ class Youtube(callbacks.Plugin):
 
                 if urlseen is "":
                     titlename = get_url_title(url)
+                    titlename = " ".join(title)
                     if len(titlename) > 0:
                         linkid = linkapi.insert_and_get_linkid(uid, titlename, url)
                         irc.reply("Title: %s" % (titlename))
