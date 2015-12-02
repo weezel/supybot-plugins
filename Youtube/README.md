@@ -10,7 +10,7 @@ Naming of the script should be more convenient but oh well.
 Saves fetched links to a database (change the path in file plugin.py and linkdb.py).
 
 Will fetch title and update it to the database if link's title is older than a
-week (86400seconds * 7).
+week (86400 sec * 7).
 
 ## Dependencies
 
