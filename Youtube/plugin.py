@@ -197,12 +197,14 @@ class Youtube(callbacks.Plugin):
                 if urlseen is "":
                     titlename = get_url_title(url)
                     if len(titlename) > 0:
-                        linkid = linkapi.insert_and_get_linkid(uid, titlename, url)
+                        linkid = linkapi.insert_and_get_linkid(uid, \
+                                     titlename, url)
                         irc.reply("Title: %s" % (titlename))
                 else:
                     if linkapi.is_link_old(url):
                         linkapi.updateLinkLastseen(url)
-                    irc.reply("Title: %s [title updated: %s]" % (urlseen[0], time.ctime(urlseen[1])))
+                    irc.reply("Title: %s [title updated: %s]" % (urlseen[0], \
+                              time.ctime(urlseen[1])))
 
 Class = Youtube
 
