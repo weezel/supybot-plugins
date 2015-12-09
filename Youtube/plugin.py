@@ -129,7 +129,6 @@ def get_url_title(url):
 
     try:
         # TODO SSL doesn't work yet
-        #resp = requests.get(url, timeout=5, verify=False)
         resp = requests.get(url, timeout=5, stream=True, verify=False)
     except requests.exceptions.MissingSchema:
         return unicode()
@@ -197,7 +196,6 @@ class Youtube(callbacks.Plugin):
 
                 if urlseen is "":
                     titlename = get_url_title(url)
-                    titlename = " ".join(title)
                     if len(titlename) > 0:
                         linkid = linkapi.insert_and_get_linkid(uid, titlename, url)
                         irc.reply("Title: %s" % (titlename))
