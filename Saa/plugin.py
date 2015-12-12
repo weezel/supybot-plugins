@@ -23,6 +23,8 @@ class FMIweather(object):
         self.__fetch()
         self.__parseData()
         self.weather = self.__parseWeather()
+        if len(self.weather) == 0:
+            self.weather = self.__parseWeather2()
         self.celestial = self.__parseCelestial()
 
     def __fetch(self):
@@ -47,6 +49,17 @@ class FMIweather(object):
             d[name] = value
         return d
 
+    def __parseWeather2(self):
+        d = dict()
+
+        for tag in self.parsed.xpath('//ul[@class="latest-observations"]/li'):
+            name = " ".join( \
+                    tag.xpath('./span[@class="parameter-name"]/text()'))
+            value = " ".join( \
+                    tag.xpath('./span[@class="parameter-value"]/text()'))
+            d[name] = value
+        return d
+
     def __parseCelestial(self):
         celestial = unicode()
 
@@ -58,10 +71,10 @@ class FMIweather(object):
         return celestial.lstrip(" ").rstrip(" ")
 
     def getForecast(self):
-        return "%s [%s]" % \
-               (", ".join(["%s: %s" % (key, val) \
-                for key, val in self.weather.items()])
-               , self.celestial)
+        return "%s [%s]" %                              \
+               (", ".join(["%s: %s" % (key, val)        \
+                for key, val in self.weather.items()]), \
+                self.celestial)
 
 if __name__ == '__main__':
     import sys
