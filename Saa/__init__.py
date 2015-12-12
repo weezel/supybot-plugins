@@ -1,5 +1,5 @@
 ###
-# Copyright (c) 2012, Ville Valkonen
+# Copyright (c) 2015, Ville Valkonen
 # All rights reserved.
 #
 #
