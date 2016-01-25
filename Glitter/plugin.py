@@ -65,14 +65,14 @@ class GlitterDB:
         unick = self.__safe_unicode(nick)
         with sqlite.connect(DB_URI) as conn:
             q = self.__safe_unicode("INSERT INTO nick VALUES (null, ?);")
-            conn.text_factory = sqlite.OptimizedUnicode
+            #conn.text_factory = sqlite.OptimizedUnicode
             conn.execute(q, [unick])
 
     def getNick(self, nick):
         unick = self.__safe_unicode(nick)
         with sqlite.connect(DB_URI) as conn:
             q = self.__safe_unicode("SELECT nid FROM nick WHERE nick.nick LIKE ?;")
-            conn.text_factory = sqlite.OptimizedUnicode
+            #conn.text_factory = sqlite.OptimizedUnicode
             results = conn.execute(q, [unick])
             return results.fetchone()[0]
         return ""
@@ -81,14 +81,14 @@ class GlitterDB:
         uchan = self.__safe_unicode(chan)
         with sqlite.connect(DB_URI) as conn:
             q = self.__safe_unicode("INSERT INTO channel VALUES (null, ?);")
-            conn.text_factory = sqlite.OptimizedUnicode
+            #conn.text_factory = sqlite.OptimizedUnicode
             conn.execute(q, [uchan])
 
     def getChannel(self, chan):
         uchan = self.__safe_unicode(chan)
         with sqlite.connect(DB_URI) as conn:
             q = self.__safe_unicode("SELECT cid FROM channel WHERE channel.channel LIKE ?;")
-            conn.text_factory = sqlite.OptimizedUnicode
+            #conn.text_factory = sqlite.OptimizedUnicode
             results = conn.execute(q, [uchan])
             return results.fetchone()[0]
         return ""
@@ -97,14 +97,14 @@ class GlitterDB:
         umsg = self.__safe_unicode(msg)
         with sqlite.connect(DB_URI) as conn:
             q = self.__safe_unicode("INSERT INTO message VALUES (null, ?);")
-            conn.text_factory = sqlite.OptimizedUnicode
+            #conn.text_factory = sqlite.OptimizedUnicode
             conn.execute(q, [umsg])
 
     def getMessage(self, msg):
         umsg = self.__safe_unicode(msg)
         with sqlite.connect(DB_URI) as conn:
             q = self.__safe_unicode("SELECT mid FROM message WHERE message.message LIKE ?;")
-            conn.text_factory = sqlite.OptimizedUnicode
+            #conn.text_factory = sqlite.OptimizedUnicode
             results = conn.execute(q, [umsg])
             return results.fetchone()[0]
         return ""
@@ -113,7 +113,7 @@ class GlitterDB:
         utags = [(mid, self.__safe_unicode(tag),) for tag in tags]
         with sqlite.connect(DB_URI) as conn:
             q = self.__safe_unicode("INSERT OR IGNORE INTO tag VALUES (null, ?, ?);")
-            conn.text_factory = sqlite.OptimizedUnicode
+            #conn.text_factory = sqlite.OptimizedUnicode
             conn.executemany(q, utags)
 
     def getTags(self, tags):
@@ -124,7 +124,7 @@ class GlitterDB:
         for tag in utags:
             with sqlite.connect(DB_URI) as conn:
                 q = self.__safe_unicode("SELECT tid FROM tag WHERE tag.tag LIKE ?;")
-                conn.text_factory = sqlite.OptimizedUnicode
+                #conn.text_factory = sqlite.OptimizedUnicode
                 results = conn.execute(q, [tag])
                 foundtags.append(results.fetchall()[0])
         return foundtags
@@ -135,7 +135,7 @@ class GlitterDB:
                 q = self.__safe_unicode("INSERT INTO glitter VALUES " + \
                               "(null, strftime('%s', 'now'), " + \
                               "?, ?, ?, ?);")
-                conn.text_factory = sqlite.OptimizedUnicode
+                #conn.text_factory = sqlite.OptimizedUnicode
                 results = conn.execute(q, (pnid, pcid, pmid, tid[0]))
 
 
